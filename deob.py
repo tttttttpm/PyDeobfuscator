@@ -174,7 +174,7 @@ class Deobfuscator(ast.NodeTransformer):
                         res.col_offset = node.col_offset
                         return res
             for function in functions:
-                if node.func.id == function and isinstance(node.args[0], ast.Constant):
+                if node.func.id == function and len(node.args) > 1 and isinstance(node.args[0], ast.Constant):
                     val = functions[function](node.args[0].value)
                     result = ast.Constant(val)
                     result.lineno = node.lineno
@@ -192,7 +192,7 @@ class Deobfuscator(ast.NodeTransformer):
                     if node.func.value.id == library:
                         for function in libraries[library]:
                             if node.func.attr == function:
-                                if isinstance(node.args[0], ast.Constant):
+                                if len(node.args) > 1 and isinstance(node.args[0], ast.Constant):
                                     val = libraries[library][function](node.args[0].value)
                                     result = ast.Constant(value=(val), kind=None)
                                     return result
