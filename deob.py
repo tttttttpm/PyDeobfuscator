@@ -9,6 +9,7 @@ import os
 import shutil
 import tarfile
 
+
 operations = {
     ast.LShift: operator.lshift,
     ast.RShift: operator.rshift,
