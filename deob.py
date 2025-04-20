@@ -312,14 +312,14 @@ def deobfuscate_module(module_name: str,
     extract_all(downloaded_path)
     warnings = deobfuscate_dir(downloaded_path)
     if not save_downloaded:
-        shutil.rmtree(downloaded_path, ignore_errors=True)
+        shutil.rmtree(downloaded_path, ignore_errors=False)
 
     if warnings == 0:
         print(GREEN_COLOR + "Nothing bad was found!" + CLEAR_COLOR)
     else:
         if not force_installing:
-            print(RED_COLOR + "Suspicious lines were found, stopping" + CLEAR_COLOR)
-            print("If you still want to install this, use --force-installing")
+            print(RED_COLOR + "Suspicious lines were found, stopping." + CLEAR_COLOR)
+            print("If you still want to install this, use --force-installing option.")
             return
         print(RED_COLOR + "Suspicious lines were found." + CLEAR_COLOR)
 
@@ -365,7 +365,7 @@ def main():
         deobfuscate_dir(args.dir, sd)
 
     if args.module:
-        deobfuscate_module(args.module, save=sd)
+        deobfuscate_module(args.module, save=sd, force_installing=args.force_installing)
 
     return 0
 
