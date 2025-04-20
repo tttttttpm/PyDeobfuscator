@@ -1,7 +1,6 @@
 import argparse
 import ast
 import base64
-from base64 import b64decode, b64encode
 import builtins
 import operator
 import sys
@@ -348,7 +347,6 @@ def main():
     parser.add_argument("-f", "--file", metavar="FILE", type=str, help="Scan file.")
     parser.add_argument("-d", "--dir", metavar="DIRECTORY", type=str, help="Scan all Python files in directory.")
     parser.add_argument("-m", "--module", metavar="MODULE", type=str, help="Scan module from PyPI.")
-    parser.add_argument("-A", "--only-ast", action="store_true", help="Write only current AST and quit.")
     parser.add_argument("-s", "--dont-save-deobfuscated", action="store_true", help="Don't save deobfuscated output.")
     parser.add_argument("-F", "--force-installing", action="store_true", help="Install package even with warnings on downloading.")
 
@@ -367,7 +365,9 @@ def main():
         deobfuscate_dir(args.dir, sd)
 
     if args.module:
-        deobfuscate_module(args.module)
+        deobfuscate_module(args.module, save=sd)
+
+    return 0
 
 if __name__ == "__main__":
     main()
