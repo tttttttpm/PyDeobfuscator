@@ -310,7 +310,7 @@ def deobfuscate_module(module_name: str,
     downloaded_path = save_downloaded_to + "/downloaded_" + module_name 
     os.system(f"python3 -m pip download {module_name} -d {downloaded_path}")
     extract_all(downloaded_path)
-    warnings = deobfuscate_dir(downloaded_path)
+    warnings = deobfuscate_dir(downloaded_path, save, save_to=save_to)
     if not save_downloaded:
         shutil.rmtree(downloaded_path, ignore_errors=False)
 
@@ -330,7 +330,7 @@ def deobfuscate_module(module_name: str,
     save_installed_to = os.path.abspath(save_installed_to)
     installed_path = save_installed_to + "/installed_" + module_name 
     os.system(f"python3 -m pip install {module_name} -t {installed_path}")
-    warnings = deobfuscate_dir(installed_path)
+    warnings = deobfuscate_dir(installed_path, save, save_to=save_to)
     if not save_installed:
         shutil.rmtree(installed_path, ignore_errors=True)
 
